@@ -1,11 +1,23 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Datacomp.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const endpoint =
+  "https://wvrvzqmqqflajhvaytpl.supabase.co/rest/v1/fremkald_priser?select=*";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2cnZ6cW1xcWZsYWpodmF5dHBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNTA0MjksImV4cCI6MjA4MDkyNjQyOX0.Fvg2ap5vq5HtKijdr2QiXsi_V7SSZUM2YKozBCd8kjw";
+
+const options = {
+  method: "GET",
+  headers: {
+    apikey: key,
+  },
+};
+
+const data = await fetch(endpoint, options).then((res) => res.json());
 ---
 
 <Layout>
-	<Welcome />
+  <h1>Prisliste</h1>
+  <Card data={data} />
 </Layout>
