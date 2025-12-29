@@ -1,31 +1,20 @@
 ---
 // components/Datacomp.astro
 const { data } = Astro.props;
-
-// Filtrer dataen efter kategori
-const filmData = data.filter((item) =>
-  ["135mm", "120mm", "E6"].includes(item.kategori)
-);
-const digitalMedieData = data.filter(
-  (item) => item.kategori === "Digitalt Medie"
-);
-const bandvideoData = data.filter((item) => item.kategori === "Båndvideo");
 ---
 
 <div class="prisliste-container">
   <!-- Film Card -->
   <div class="prisliste-card">
     <h2>Film</h2>
+      <h3>135 mm:</h3>
     <p>
       1–2 dage<br />Engangskamera 10 kr ekstra — ved APS er der gebyr på 10 til
       50 kr alt efter hvad der skal laves.
     </p>
-
-    <div class="prisliste-subcategory">
-      <h3>135 mm:</h3>
       <div class="prisliste-items">
         {
-          filmData
+          data
             .filter((item) => item.kategori === "135mm")
             .map((item) => (
               <div class="prisliste-item">
@@ -37,11 +26,12 @@ const bandvideoData = data.filter((item) => item.kategori === "Båndvideo");
       </div>
     </div>
 
+
     <div class="prisliste-subcategory">
       <h3>120 mm:</h3>
       <div class="prisliste-items">
         {
-          filmData
+          data
             .filter((item) => item.kategori === "120mm")
             .map((item) => (
               <div class="prisliste-item">
@@ -57,7 +47,7 @@ const bandvideoData = data.filter((item) => item.kategori === "Båndvideo");
       <h3>E6:</h3>
       <div class="prisliste-items">
         {
-          filmData
+          data
             .filter((item) => item.kategori === "E6")
             .map((item) => (
               <div class="prisliste-item">
@@ -77,12 +67,14 @@ const bandvideoData = data.filter((item) => item.kategori === "Båndvideo");
     <div class="prisliste-subcategory">
       <div class="prisliste-items">
         {
-          digitalMedieData.map((item) => (
-            <div class="prisliste-item">
-              <span class="liste-titel">{item.type}</span>
-              <span class="liste-pris">{item.pris}</span>
-            </div>
-          ))
+          data
+            .filter((item) => item.kategori === "Digitalt Medie")
+            .map((item) => (
+              <div class="prisliste-item">
+                <span class="liste-titel">{item.type}</span>
+                <span class="liste-pris">{item.pris}</span>
+              </div>
+            ))
         }
         <div class="prisliste-item">
           <span class="liste-titel">Ved specielle mål</span>
@@ -103,11 +95,10 @@ const bandvideoData = data.filter((item) => item.kategori === "Båndvideo");
       <h3>VHS til DVD (eller usb)</h3>
       <div class="prisliste-items">
         {
-          bandvideoData
+          data
             .filter((item) => item.type === "VHS til DVD (eller usb)")
             .map((item) => (
               <div class="prisliste-item">
-                <span class="liste-titel">{item.type}</span>
                 <span class="liste-pris">{item.pris}</span>
               </div>
             ))
@@ -116,95 +107,100 @@ const bandvideoData = data.filter((item) => item.kategori === "Båndvideo");
     </div>
     <div class="prisliste-subcategory">
       <h3>Smal film til digitalt</h3>
-      <div class="prisliste-items">
         {
-          bandvideoData
+          data
             .filter((item) => item.type === "Smal film til digitalt")
             .map((item) => (
               <div class="prisliste-item">
-                <span class="liste-titel">{item.type}</span>
                 <span class="liste-pris">{item.pris}</span>
               </div>
             ))
         }
-      </div>
     </div>
   </div>
-
-  <style>
-    .prisliste-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .prisliste-card {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .prisliste-card h2 {
-      font-size: 32px;
-      margin-bottom: 0.5rem;
-      color: #00071a;
-      font-weight: bold;
-    }
-
-    .prisliste-card p {
-      margin-bottom: 1.5rem;
-      color: #00071a;
-      font-size: 20px;
-    }
-
-    .prisliste-subcategory {
-      margin-bottom: 1.5rem;
-    }
-
-    .prisliste-subcategory h3 {
-      font-size: 24px;
-      margin-bottom: 1rem;
-      color: #00071a;
-      font-weight: bold;
-    }
-
-    .prisliste-items {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .prisliste-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #000000;
-    }
-
-    .liste-titel {
-      font-weight: 400;
-      color: #00071a;
-      font-size: 20px;
-    }
-
-    .liste-pris {
-      font-weight: 600;
-      color: #00071a;
-      font-size: 20px;
-    }
-
-    .kontakt-os {
-      background-color: #f4d03f;
-      color: #00071a;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 20px;
-      font-weight: 600;
-      display: inline-block;
-    }
-  </style>
 </div>
+
+<style>
+  /* Din eksisterende CSS her */
+  .prisliste-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .prisliste-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .prisliste-card h2 {
+    font-size: 32px;
+    margin-bottom: 0.5rem;
+    color: #00071a;
+    font-weight: bold;
+  }
+
+  .prisliste-card p {
+    margin-bottom: 1.5rem;
+    color: #00071a;
+    font-size: 20px;
+  }
+
+  .prisliste-subcategory {
+    margin-bottom: 1.5rem;
+  }
+
+  .prisliste-subcategory h3 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+    color: #00071a;
+    font-weight: bold;
+
+  }
+
+  .prisliste-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prisliste-item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    max-width: 100%;
+    width: 400px;
+    align-items: end;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #000000;
+    margin-inline-start: auto;
+  }
+
+  .liste-titel {
+    font-weight: 400;
+    color: #00071a;
+    font-size: 20px;
+  }
+
+  .liste-pris {
+    font-weight: 600;
+    color: #00071a;
+    font-size: 20px;
+  }
+
+  .kontakt-os {
+    background-color: #f4d03f;
+    color: #00071a;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    display: inline-block;
+  }
+</style>
