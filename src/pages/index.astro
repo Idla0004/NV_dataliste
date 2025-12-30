@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Datacomp.astro";
+import "../css/general.css";
 
 const endpoint =
   "https://wvrvzqmqqflajhvaytpl.supabase.co/rest/v1/fremkald_priser?select=*";
@@ -18,6 +19,27 @@ const data = await fetch(endpoint, options).then((res) => res.json());
 ---
 
 <Layout>
-  <h1>Prisliste</h1>
-  <Card data={data} />
+  <section class="fremkald-side">
+    <h1>Prisliste</h1>
+    <Card data={data} />
+  </section>
 </Layout>
+
+<style>
+  .fremkald-side {
+    font-family: montserrat-r;
+    margin: clamp(40px, 5vw, 130px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  section {
+    max-width: 1300px;
+  }
+
+      @media (max-width: 850px) {
+      .fremkald-side {
+        margin: auto;
+        padding: clamp(10px, 4vw, 40px);
+      }
+</style>
