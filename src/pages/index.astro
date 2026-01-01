@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Datacomp.astro";
+import PrisCard from "../components/Datacard.astro";
 import "../css/general.css";
 
 const endpoint =
@@ -19,9 +19,67 @@ const data = await fetch(endpoint, options).then((res) => res.json());
 ---
 
 <Layout>
-  <section class="fremkald-side">
-    <h1>Prisliste</h1>
-    <Card data={data} />
+  <section class="prisliste-container">
+    <PrisCard
+      data={data}
+      headline="Film"
+      engangskamera="Engangskamera: 10 Kr ekstra"
+      information="Ved APS er der gebyr på 10 til 50 Kr alt efter hvad der skal laves."
+      subCategories={[
+        {
+          kategori: "135mm",
+          headline: "135 mm:",
+          procestime: "Behandlingstid: 1-2 dage",
+        },
+        {
+          kategori: "120mm",
+          headline: "120 mm:",
+          procestime: "Behandlingstid: 1-2 dage",
+        },
+        {
+          kategori: "E6",
+          headline: "E6:",
+          procestime: "Behandlingstid: 3-5 dage",
+        },
+      ]}
+    />
+  </section>
+
+  <section class="prisliste-container">
+    <PrisCard
+      data={data}
+      headline="Fra digital medie (smartphone, usb...)"
+      engangskamera=""
+      underline=""
+      subCategories={[
+        {
+          kategori: "Digitalt Medie",
+          headline: "Digitale billeder til papirfotos",
+          procestime: "1-2 dage",
+        },
+      ]}
+    />
+  </section>
+
+  <section class="prisliste-container">
+    <PrisCard
+      data={data}
+      headline="Båndvideo"
+      engangskamera=""
+      underline=""
+      subCategories={[
+        {
+          kategori: "VHS til DVD (eller usb)",
+          headline: "VHS til DVD (eller usb)",
+          procestime: "1-2 dage",
+        },
+        {
+          kategori: "Smal film til digitalt",
+          headline: "Smal film til digitalt",
+          procestime: "1-2 dage",
+        },
+      ]}
+    />
   </section>
 </Layout>
 
@@ -35,11 +93,17 @@ const data = await fetch(endpoint, options).then((res) => res.json());
 
   section {
     max-width: 1300px;
+    margin: auto;
   }
 
-      @media (max-width: 850px) {
-      .fremkald-side {
-        margin: auto;
-        padding: clamp(10px, 4vw, 40px);
-      }
+  .prisliste-container {
+    margin-bottom: clamp(1rem, 5vw, 3rem);
+  }
+
+  @media (max-width: 850px) {
+    .fremkald-side {
+      margin: auto;
+      padding: clamp(10px, 4vw, 40px);
+    }
+  }
 </style>
